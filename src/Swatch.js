@@ -3,10 +3,16 @@ import './Swatch.css';
 
 class Swatch extends Component {
   render() {
+    const { name, background } = this.props;
     return (
-      <div style={{ background: this.props.background }} className="Swatch">
-        <span>{this.props.name}</span>
-        <span>More</span>
+      <div style={{ background: background }} className="Swatch">
+        <div className="copy-container">
+          <div className="box-content">
+            <span>{name}</span>
+          </div>
+          <button className="copy-button">Copy</button>
+        </div>
+        <span className="see-more">More</span>
       </div>
     );
   }
