@@ -1,39 +1,35 @@
 import React, { Component } from 'react';
 import Swatch from './Swatch';
-import Slider, { Range } from 'rc-slider';
-import 'rc-slider/assets/index.css';
+import Navbar from './Navbar';
 import './Palette.css';
 
 class Palette extends Component {
   constructor(props) {
     super(props);
-    this.state = { level: 500 };
+    this.state = { level: 500, format: 'hex' };
 
     this.changeLevel = this.changeLevel.bind(this);
+    this.changeFormat = this.changeFormat.bind(this);
   }
 
   changeLevel(level) {
     this.setState({ level });
   }
 
+  changeFormat(val) {
+    this.setState({ format: val });
+  }
+
   render() {
     const { colors } = this.props.palette;
-    const { level } = this.state;
+    const { level, format } = this.state;
     const swatches = colors[level].map(color => (
-      <Swatch background={color.hex} name={color.name} />
+      <Swatch background={color[format]} name={color.name} />
     ));
 
     return (
       <div className="Palette">
-        <div className="slider">
-          <Slider
-            defaultValue={level}
-            min={100}
-            max={900}
-            step={100}
-            onAfterChange={this.changeLevel}
-          />
-        </div>
+        <Navbar level={level} changeLevel={this.changeLevel} handleChange={this.changeFormat} />
         {/* navbar */}
         <div className="Palette-swatches">{swatches}</div>
         {/* footer */}
