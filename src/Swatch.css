@@ -1,5 +1,5 @@
 .Swatch {
-  flex: 20%;
+  flex: 20% 0;
   position: relative;
   cursor: pointer;
   display: flex;

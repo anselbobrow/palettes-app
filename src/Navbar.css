@@ -16,6 +16,11 @@
   align-items: center;
 }
 
+.logo a {
+  color: black;
+  text-decoration: none;
+}
+
 .slider {
   min-width: 200px;
   max-width: 340px;
