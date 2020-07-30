@@ -38,11 +38,9 @@ class SwatchDetail extends Component {
         <Navbar handleFormatChange={this.changeFormat} swatchDetail />
         <div className="Palette-swatches">
           {swatches}
-          <div className="go-back Swatch">
-            <Link to={`/palette/${id}`} className="back-button">
-              Go Back
-            </Link>
-          </div>
+          <Link to={`/palette/${id}`} className="back-button">
+            <div className="go-back Swatch">Go Back</div>
+          </Link>
         </div>
         <PaletteFooter paletteName={paletteName} emoji={emoji} />
       </div>

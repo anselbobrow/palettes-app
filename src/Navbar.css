@@ -21,6 +21,10 @@
   text-decoration: none;
 }
 
+.slider-container span {
+  font-variant-numeric: tabular-nums;
+}
+
 .slider {
   min-width: 200px;
   max-width: 340px;

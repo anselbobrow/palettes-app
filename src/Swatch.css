@@ -7,10 +7,6 @@
   align-items: center;
 }
 
-.SwatchDetail .Swatch {
-  /* targets swatches in swatch detail mode only */
-}
-
 .Swatch.go-back {
   background: black;
   line-height: 30px;
@@ -64,6 +60,14 @@
   border: none;
   text-align: center;
   text-transform: uppercase;
+}
+
+.white-text {
+  color: white;
+}
+
+.black-text {
+  color: rgb(0, 0, 0, 0.7);
 }
 
 .copy-overlay {
