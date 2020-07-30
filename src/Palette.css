@@ -1,16 +1,16 @@
-.Palette {
+/* .Palette {
   height: 100vh;
   display: flex;
   flex-flow: column;
-}
+} */
 
-.Palette-swatches {
+/* .Palette-swatches {
   height: 90%;
   width: 100%;
   display: flex;
   align-items: stretch;
   flex-wrap: wrap;
-}
+} */
 
 .Palette-footer {
   background: white;

@@ -7,13 +7,13 @@
   align-items: center;
 } */
 
-.Swatch.go-back {
+/* .Swatch.go-back {
   background: black;
   line-height: 30px;
   text-align: center;
-}
+} */
 
-.copy-button,
+/* .copy-button,
 .back-button {
   padding: 0;
   width: 100px;
@@ -27,7 +27,7 @@
   text-transform: uppercase;
   text-decoration: none;
   transition: 0.5s;
-}
+} */
 
 /* .copy-button {
   opacity: 0;

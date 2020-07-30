@@ -13,6 +13,7 @@ const styles = {
       cursor: 'pointer',
     },
   },
+
   colors: {
     backgroundColor: '#dae1e4',
     borderRadius: '5px',
@@ -23,6 +24,7 @@ const styles = {
     flexWrap: 'wrap',
     alignItems: 'stretch',
   },
+
   title: {
     display: 'flex',
     justifyContent: 'space-between',
@@ -33,10 +35,12 @@ const styles = {
     fontSize: '1rem',
     position: 'relative',
   },
+
   emoji: {
     marginLeft: '0.5rem',
     fontSize: '1.5rem',
   },
+
   miniSwatch: {
     flex: '20% 0',
   },

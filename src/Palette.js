@@ -1,8 +1,24 @@
 import React, { Component } from 'react';
+import { withStyles } from '@material-ui/core/styles';
 import Swatch from './Swatch';
 import Navbar from './Navbar';
 import PaletteFooter from './PaletteFooter';
 import './Palette.css';
+
+const styles = {
+  Palette: {
+    height: '100vh',
+    display: 'flex',
+    flexFlow: 'column',
+  },
+  swatches: {
+    height: '90%',
+    width: '100%',
+    display: 'flex',
+    alignItems: 'stretch',
+    flexWrap: 'wrap',
+  }
+};
 
 class Palette extends Component {
   constructor(props) {
@@ -22,8 +38,10 @@ class Palette extends Component {
   }
 
   render() {
+    const { classes } = this.props;
     const { colors, id, paletteName, emoji } = this.props.palette;
     const { level, format } = this.state;
+
     const swatches = colors[level].map(color => (
       <Swatch
         background={color[format]}
@@ -35,18 +53,18 @@ class Palette extends Component {
     ));
 
     return (
-      <div className="Palette">
+      <div className={classes.Palette}>
         <Navbar
           level={level}
           changeLevel={this.changeLevel}
           handleFormatChange={this.changeFormat}
           swatchDetail={false}
         />
-        <div className="Palette-swatches">{swatches}</div>
+        <div className={classes.swatches}>{swatches}</div>
         <PaletteFooter paletteName={paletteName} emoji={emoji} />
       </div>
     );
   }
 }
 
-export default Palette;
+export default withStyles(styles)(Palette);
