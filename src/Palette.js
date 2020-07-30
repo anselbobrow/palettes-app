@@ -3,22 +3,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Swatch from './Swatch';
 import Navbar from './Navbar';
 import PaletteFooter from './PaletteFooter';
-import './Palette.css';
-
-const styles = {
-  Palette: {
-    height: '100vh',
-    display: 'flex',
-    flexFlow: 'column',
-  },
-  swatches: {
-    height: '90%',
-    width: '100%',
-    display: 'flex',
-    alignItems: 'stretch',
-    flexWrap: 'wrap',
-  }
-};
+import styles from './styles/PaletteStyles';
 
 class Palette extends Component {
   constructor(props) {
