@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Swatch from './Swatch';
 import Navbar from './Navbar';
+import PaletteFooter from './PaletteFooter';
 import './Palette.css';
 
 class Palette extends Component {
@@ -21,7 +22,7 @@ class Palette extends Component {
   }
 
   render() {
-    const { colors, paletteName, emoji, id } = this.props.palette;
+    const { colors, id, paletteName, emoji } = this.props.palette;
     const { level, format } = this.state;
     const swatches = colors[level].map(color => (
       <Swatch
@@ -39,12 +40,10 @@ class Palette extends Component {
           level={level}
           changeLevel={this.changeLevel}
           handleFormatChange={this.changeFormat}
+          swatchDetail={false}
         />
         <div className="Palette-swatches">{swatches}</div>
-        <footer className="Palette-footer">
-          {paletteName}
-          <span className="emoji">{emoji}</span>
-        </footer>
+        <PaletteFooter paletteName={paletteName} emoji={emoji} />
       </div>
     );
   }

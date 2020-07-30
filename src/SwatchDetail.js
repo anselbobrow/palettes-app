@@ -1,12 +1,19 @@
 import React, { Component } from 'react';
 import Swatch from './Swatch';
+import Navbar from './Navbar';
+import PaletteFooter from './PaletteFooter';
 
 class SwatchDetail extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = { format: 'hex' };
 
     this._shades = this.getShades(this.props.palette, this.props.color);
+    this.changeFormat = this.changeFormat.bind(this);
+  }
+
+  changeFormat(val) {
+    this.setState({ format: val });
   }
 
   getShades(palette, color) {
@@ -20,13 +27,16 @@ class SwatchDetail extends Component {
   }
 
   render() {
+    const { format } = this.state;
+    const {paletteName, emoji} = this.props.palette;
     const swatches = this._shades.map(swatch => (
-      <Swatch key={swatch.id} name={swatch.name} background={swatch.hex} showLink={false} />
+      <Swatch key={swatch.id} name={swatch.name} background={swatch[format]} showLink={false} />
     ));
     return (
       <div className="Palette">
-        <h1>Single color detail component</h1>
-        <div className="Palette-swatches">{swatches}</div>
+        <Navbar handleFormatChange={this.changeFormat} swatchDetail />
+        <div className="Palette-swatches">{swatches}</div>\
+        <PaletteFooter paletteName={paletteName} emoji={emoji}/>
       </div>
     );
   }
