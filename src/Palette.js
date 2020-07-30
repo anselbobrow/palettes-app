@@ -21,10 +21,15 @@ class Palette extends Component {
   }
 
   render() {
-    const { colors, paletteName, emoji } = this.props.palette;
+    const { colors, paletteName, emoji, id } = this.props.palette;
     const { level, format } = this.state;
     const swatches = colors[level].map(color => (
-      <Swatch background={color[format]} name={color.name} key={color.id} />
+      <Swatch
+        background={color[format]}
+        name={color.name}
+        key={color.id}
+        moreUrl={`/palette/${id}/${color.id}`}
+      />
     ));
 
     return (
