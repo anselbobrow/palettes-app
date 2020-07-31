@@ -6,6 +6,7 @@ export default {
     alignItems: 'flex-start',
     justifyContent: 'center',
   },
+
   container: {
     width: '50%',
     display: 'flex',
@@ -13,12 +14,17 @@ export default {
     flexDirection: 'column',
     flexWrap: 'wrap',
   },
+
   nav: {
     display: 'flex',
     width: '100%',
     justifyContent: 'space-between',
-    color: '#fff',
+    alignItems: 'center',
+    '& a, a:visited': {
+      color: 'white',
+    },
   },
+
   palettes: {
     boxSizing: 'border-box',
     width: '100%',
