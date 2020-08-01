@@ -125,9 +125,11 @@ class NewPaletteForm extends Component {
   }
 
   savePalette() {
+    const newName = 'New Test Palette';
+
     const newPalette = {
-      paletteName: 'new-test-palette',
-      id: 'new-test-palette',
+      paletteName: newName,
+      id: newName.toLowerCase().replace(/ /g, '-'),
       emoji: '🥒',
       colors: this.state.colors,
     };

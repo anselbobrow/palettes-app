@@ -18,7 +18,7 @@ class Swatch extends Component {
   }
 
   render() {
-    const { classes, name, background, moreUrl, showLink } = this.props;
+    const { classes, name, background, moreUrl, isFullPalette } = this.props;
     const { copied } = this.state;
     return (
       <CopyToClipboard text={background} onCopy={this.changeCopyState}>
@@ -37,7 +37,7 @@ class Swatch extends Component {
             </div>
             <button className={classes.copyButton}>Copy</button>
           </div>
-          {showLink && (
+          {isFullPalette && (
             <Link to={moreUrl} onClick={e => e.stopPropagation()}>
               <span className={classes.seeMore}>More</span>
             </Link>

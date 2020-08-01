@@ -3,6 +3,7 @@ import chroma from 'chroma-js';
 export default {
   Swatch: {
     flex: '20% 0',
+    height: props => (props.isFullPalette ? '25%' : '50%'),
     position: 'relative',
     cursor: 'pointer',
     display: 'flex',

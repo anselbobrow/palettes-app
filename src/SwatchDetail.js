@@ -35,7 +35,12 @@ class SwatchDetail extends Component {
     const { paletteName, emoji, id } = this.props.palette;
 
     const swatches = this._shades.map(swatch => (
-      <Swatch key={swatch.name} name={swatch.name} background={swatch[format]} showLink={false} />
+      <Swatch
+        key={swatch.name}
+        name={swatch.name}
+        background={swatch[format]}
+        isFullPalette={false}
+      />
     ));
     return (
       <div className={classes.Palette}>

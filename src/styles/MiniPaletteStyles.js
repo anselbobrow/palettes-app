@@ -40,5 +40,6 @@ export default {
 
   miniSwatch: {
     flex: '20% 0',
+    height: '25%',
   },
 };
