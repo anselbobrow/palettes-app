@@ -8,14 +8,28 @@ import { generatePalette } from './colorHelpers';
 import SwatchDetail from './SwatchDetail';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+
+    this.savePalette = this.savePalette.bind(this);
+  }
+
   findPalette(id) {
     return seedColors.find(palette => palette.id === id);
+  }
+
+  savePalette(newPalette) {
+    console.log(newPalette);
   }
 
   render() {
     return (
       <Switch>
-        <Route exact path="/palette/new" render={() => <NewPaletteForm />} />
+        <Route
+          exact
+          path="/palette/new"
+          render={routeProps => <NewPaletteForm {...routeProps} savePalette={this.savePalette} />}
+        />
         <Route
           exact
           path="/"

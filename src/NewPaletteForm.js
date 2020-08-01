@@ -10,12 +10,10 @@ import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
 import Button from '@material-ui/core/Button';
 import { ChromePicker } from 'react-color';
+import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
+import DraggableSwatch from './DraggableSwatch';
 
 const drawerWidth = 400;
 
@@ -59,13 +57,16 @@ const styles = theme => ({
     justifyContent: 'flex-end',
   },
   content: {
-    flexGrow: 1,
-    padding: theme.spacing(3),
+    flex: 1,
+    paddingTop: 64,
     transition: theme.transitions.create('margin', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
     marginLeft: -drawerWidth,
+    height: '100vh',
+    display: 'flex',
+    flexWrap: 'wrap',
   },
   contentShift: {
     transition: theme.transitions.create('margin', {
@@ -79,26 +80,72 @@ const styles = theme => ({
 class NewPaletteForm extends Component {
   constructor() {
     super();
-    this.state = { open: false };
+    this.state = { open: true, currentColor: 'white', colors: [], newName: '' };
+
+    this.updateCurrentColor = this.updateCurrentColor.bind(this);
+    this.handleDrawerOpen = this.handleDrawerOpen.bind(this);
+    this.handleDrawerClose = this.handleDrawerClose.bind(this);
+    this.addNewColor = this.addNewColor.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.savePalette = this.savePalette.bind(this);
   }
 
-  handleDrawerOpen = () => {
-    this.setState({ open: true });
-  };
+  componentDidMount() {
+    ValidatorForm.addValidationRule('isColorNameUnique', value =>
+      this.state.colors.every(({ name }) => name.toLowerCase() !== value.toLowerCase())
+    );
 
-  handleDrawerClose = () => {
+    ValidatorForm.addValidationRule('isColorUnique', value =>
+      this.state.colors.every(({ color }) => color !== this.state.currentColor)
+    );
+  }
+
+  handleDrawerOpen() {
+    this.setState({ open: true });
+  }
+
+  handleDrawerClose() {
     this.setState({ open: false });
-  };
+  }
+
+  updateCurrentColor(newColor) {
+    this.setState({ currentColor: newColor.hex });
+  }
+
+  addNewColor() {
+    const newColor = {
+      color: this.state.currentColor,
+      name: this.state.newName,
+    };
+    this.setState({ colors: [...this.state.colors, newColor] });
+  }
+
+  handleSubmit(e) {
+    this.setState({ newName: e.target.value });
+  }
+
+  savePalette() {
+    const newPalette = {
+      paletteName: 'new-test-palette',
+      id: 'new-test-palette',
+      emoji: '🥒',
+      colors: this.state.colors,
+    };
+
+    this.props.savePalette(newPalette);
+    this.props.history.push('/');
+  }
 
   render() {
     const { classes } = this.props;
-    const { open } = this.state;
+    const { open, currentColor, colors, newName } = this.state;
 
     return (
       <div className={classes.root}>
         <CssBaseline />
         <AppBar
           position="fixed"
+          color="default"
           className={clsx(classes.appBar, {
             [classes.appBarShift]: open,
           })}
@@ -116,6 +163,9 @@ class NewPaletteForm extends Component {
             <Typography variant="h6" noWrap>
               Persistent drawer
             </Typography>
+            <Button variant="contained" color="primary" onClick={this.savePalette}>
+              Save Palette
+            </Button>
           </Toolbar>
         </AppBar>
         <Drawer
@@ -134,7 +184,7 @@ class NewPaletteForm extends Component {
           </div>
           <Divider />
           <Typography variant="h4">Design Your Palette</Typography>
-          <div className="">
+          <div>
             <Button variant="contained" color="secondary">
               Clear Palette
             </Button>
@@ -142,10 +192,23 @@ class NewPaletteForm extends Component {
               Random Color
             </Button>
           </div>
-          <ChromePicker color="purple" onChangeComplete={newColor => console.log(newColor)} />
-          <Button variant="contained" color="primary">
-            Add Color
-          </Button>
+          <ChromePicker color={currentColor} onChange={this.updateCurrentColor} />
+          <ValidatorForm onSubmit={this.addNewColor}>
+            <TextValidator
+              value={newName}
+              onChange={this.handleSubmit}
+              validators={['required', 'isColorNameUnique', 'isColorUnique']}
+              errorMessages={['Enter a color name', 'Name already taken', 'Color already used']}
+            />
+            <Button
+              variant="contained"
+              color="primary"
+              style={{ backgroundColor: currentColor }}
+              type="submit"
+            >
+              Add Color
+            </Button>
+          </ValidatorForm>
         </Drawer>
         <main
           className={clsx(classes.content, {
@@ -153,6 +216,10 @@ class NewPaletteForm extends Component {
           })}
         >
           <div className={classes.drawerHeader} />
+
+          {colors.map(color => (
+            <DraggableSwatch color={color.color} name={color.name} />
+          ))}
         </main>
       </div>
     );
