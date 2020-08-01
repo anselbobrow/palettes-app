@@ -10,10 +10,15 @@ export default {
     display: 'flex',
     alignItems: 'flex-start',
     justifyContent: 'center',
+
     '& h1': {
       color: 'white',
       fontSize: '2rem',
       margin: '1rem 0',
+    },
+
+    '& a': {
+      textDecoration: 'none',
     },
   },
 
@@ -46,5 +51,6 @@ export default {
   newPalette: {
     color: 'white',
     border: '1px solid rgb(255, 255, 255, 0.8)',
+    textDecoration: 'none',
   },
 };

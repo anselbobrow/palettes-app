@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import clsx from 'clsx';
 import { withStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -16,12 +17,17 @@ import chroma from 'chroma-js';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import arrayMove from 'array-move';
 import DraggableSwatchList from './DraggableSwatchList';
+import SavePaletteForm from './SavePaletteForm';
 
 const drawerWidth = 400;
 
 const styles = theme => ({
   root: {
     display: 'flex',
+
+    '& a': {
+      textDecoration: 'none',
+    },
   },
   appBar: {
     transition: theme.transitions.create(['margin', 'width'], {
@@ -75,6 +81,9 @@ const styles = theme => ({
     }),
     marginLeft: 0,
   },
+  validatorForm: {
+    display: 'flex',
+  },
 });
 
 class NewPaletteForm extends Component {
@@ -87,7 +96,6 @@ class NewPaletteForm extends Component {
       currentColor: '#000',
       colors: this.props.palettes[0].colors,
       newColorName: '',
-      newPaletteName: '',
     };
 
     this.updateCurrentColor = this.updateCurrentColor.bind(this);
@@ -109,12 +117,6 @@ class NewPaletteForm extends Component {
 
     ValidatorForm.addValidationRule('isColorUnique', () =>
       this.state.colors.every(({ color }) => color !== this.state.currentColor)
-    );
-
-    ValidatorForm.addValidationRule('isPaletteUnique', value =>
-      this.props.palettes.every(
-        ({ paletteName }) => paletteName.toLowerCase() !== value.toLowerCase()
-      )
     );
   }
 
@@ -156,9 +158,7 @@ class NewPaletteForm extends Component {
     this.setState({ [e.target.name]: e.target.value });
   }
 
-  savePalette() {
-    const { newPaletteName } = this.state;
-
+  savePalette(newPaletteName) {
     const newPalette = {
       paletteName: newPaletteName,
       id: newPaletteName.toLowerCase().replace(/ /g, '-'),
@@ -177,54 +177,20 @@ class NewPaletteForm extends Component {
   }
 
   render() {
-    const { classes, maxColors } = this.props;
+    const { classes, maxColors, palettes } = this.props;
     const { open, currentColor, colors, newColorName } = this.state;
 
     const paletteIsFull = colors.length >= maxColors;
 
     return (
       <div className={classes.root}>
-        <CssBaseline />
-        <AppBar
-          position="fixed"
-          color="default"
-          className={clsx(classes.appBar, {
-            [classes.appBarShift]: open,
-          })}
-        >
-          <Toolbar>
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              onClick={this.handleDrawerOpen}
-              edge="start"
-              className={clsx(classes.menuButton, open && classes.hide)}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Typography variant="h6" noWrap>
-              Create Palette
-            </Typography>
-            <ValidatorForm onSubmit={this.savePalette}>
-              <TextValidator
-                label="Palette Name"
-                name="newPaletteName"
-                value={this.state.newPaletteName}
-                onChange={this.handleChange}
-                validators={['required', 'isPaletteUnique']}
-                errorMessages={['Enter a palette name', 'Name already taken']}
-              />
-              <Button
-                style={{ marginLeft: 'auto' }}
-                variant="contained"
-                color="primary"
-                type="submit"
-              >
-                Save Palette
-              </Button>
-            </ValidatorForm>
-          </Toolbar>
-        </AppBar>
+        <SavePaletteForm
+          classes={classes}
+          open={open}
+          palettes={palettes}
+          savePalette={this.savePalette}
+          handleDrawerOpen={this.handleDrawerOpen}
+        />
         <Drawer
           className={classes.drawer}
           variant="persistent"
@@ -264,7 +230,10 @@ class NewPaletteForm extends Component {
               color="primary"
               style={{
                 backgroundColor: paletteIsFull ? 'grey' : currentColor,
-                color: chroma.contrast(currentColor, 'white') < 4.5 ? 'black' : 'white',
+                color:
+                  paletteIsFull || chroma.contrast(currentColor, 'white') >= 4.5
+                    ? 'white'
+                    : 'black',
               }}
               type="submit"
               disabled={paletteIsFull}
