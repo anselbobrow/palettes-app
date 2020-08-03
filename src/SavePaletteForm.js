@@ -1,54 +1,21 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { withStyles } from '@material-ui/core/styles';
-import clsx from 'clsx';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
 import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
-
-const drawerWidth = 400;
-
-const styles = theme => ({
-  root: {
-    display: 'flex',
-  },
-  appBar: {
-    transition: theme.transitions.create(['margin', 'width'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    height: 64,
-  },
-  appBarShift: {
-    width: `calc(100% - ${drawerWidth}px)`,
-    marginLeft: drawerWidth,
-    transition: theme.transitions.create(['margin', 'width'], {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  hide: {
-    display: 'none',
-  },
-  navBtns: {},
-});
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 class SavePaletteForm extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { newPaletteName: '' };
+    this.state = { open: false, newPaletteName: 'asdf' };
 
+    this.handleClickOpen = this.handleClickOpen.bind(this);
+    this.handleClose = this.handleClose.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
 
@@ -60,39 +27,30 @@ class SavePaletteForm extends Component {
     );
   }
 
+  handleClickOpen() {
+    this.setState({ open: true });
+  }
+
+  handleClose() {
+    this.setState({ open: false });
+  }
+
   handleChange(e) {
     this.setState({ [e.target.name]: e.target.value });
   }
 
   render() {
-    const { classes, open, savePalette, handleDrawerOpen } = this.props;
-    const { newPaletteName } = this.state;
+    const { savePalette } = this.props;
+    const { open, newPaletteName } = this.state;
 
     return (
-      <div className={classes.root}>
-        <CssBaseline />
-        <AppBar
-          position="fixed"
-          color="default"
-          className={clsx(classes.appBar, {
-            [classes.appBarShift]: open,
-          })}
-        >
-          <Toolbar>
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              onClick={handleDrawerOpen}
-              edge="start"
-              className={clsx(classes.menuButton, open && classes.hide)}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Typography variant="h6" noWrap>
-              Create Palette
-            </Typography>
-          </Toolbar>
-          <div className={classes.navBtns}>
+      <div>
+        <Button variant="outlined" color="primary" onClick={this.handleClickOpen}>
+          Open form dialog
+        </Button>
+        <Dialog open={open} onClose={this.handleClose} aria-labelledby="form-dialog-title">
+          <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
+          <DialogContent>
             <ValidatorForm onSubmit={() => savePalette(newPaletteName)}>
               <TextValidator
                 label="Palette Name"
@@ -111,16 +69,19 @@ class SavePaletteForm extends Component {
                 Save Palette
               </Button>
             </ValidatorForm>
-            <Link to="/">
-              <Button color="secondary" variant="contained">
-                Go Back
-              </Button>
-            </Link>
-          </div>
-        </AppBar>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={this.handleClose} color="primary">
+              Cancel
+            </Button>
+            <Button onClick={this.handleClose} color="primary">
+              Subscribe
+            </Button>
+          </DialogActions>
+        </Dialog>
       </div>
     );
   }
 }
 
-export default withStyles(styles, { withTheme: true })(SavePaletteForm);
+export default SavePaletteForm;

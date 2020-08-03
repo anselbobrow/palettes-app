@@ -1,26 +1,19 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import clsx from 'clsx';
 import { withStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import Button from '@material-ui/core/Button';
-import { ChromePicker } from 'react-color';
 import chroma from 'chroma-js';
-import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
-import arrayMove from 'array-move';
 import DraggableSwatchList from './DraggableSwatchList';
-import SavePaletteForm from './SavePaletteForm';
+import arrayMove from 'array-move';
+import PaletteFormNav from './PaletteFormNav';
 import ColorPickerForm from './ColorPickerForm';
 
-const drawerWidth = 400;
+const drawerWidth = 350;
 
 const styles = theme => ({
   root: {
@@ -28,6 +21,11 @@ const styles = theme => ({
 
     '& a': {
       textDecoration: 'none',
+    },
+
+    '& h4': {
+      width: '100%',
+      textAlign: 'center',
     },
   },
   drawer: {
@@ -61,6 +59,24 @@ const styles = theme => ({
       duration: theme.transitions.duration.enteringScreen,
     }),
     marginLeft: 0,
+  },
+  container: {
+    width: '90%',
+    height: '100%',
+    margin: 'auto',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  buttons: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'space-between',
+    marginTop: '1rem',
+  },
+  button: {
+    width: '48%',
   },
 });
 
@@ -143,7 +159,7 @@ class NewPaletteForm extends Component {
 
     return (
       <div className={classes.root}>
-        <SavePaletteForm
+        <PaletteFormNav
           open={open}
           palettes={palettes}
           savePalette={this.savePalette}
@@ -164,20 +180,32 @@ class NewPaletteForm extends Component {
             </IconButton>
           </div>
           <Divider />
-          <Typography variant="h4">Design Your Palette</Typography>
-          <div>
-            <Button variant="contained" color="secondary" onClick={this.clearColors}>
-              Clear Palette
-            </Button>
-            <Button variant="contained" color="primary" onClick={this.randomColor}>
-              Random Color
-            </Button>
+          <div className={classes.container}>
+            <Typography variant="h4">Design Your Palette</Typography>
+            <div className={classes.buttons}>
+              <Button
+                className={classes.button}
+                variant="contained"
+                color="secondary"
+                onClick={this.clearColors}
+              >
+                Clear Palette
+              </Button>
+              <Button
+                className={classes.button}
+                variant="contained"
+                color="primary"
+                onClick={this.randomColor}
+              >
+                Random Color
+              </Button>
+            </div>
+            <ColorPickerForm
+              paletteIsFull={paletteIsFull}
+              addNewColor={this.addNewColor}
+              colors={colors}
+            />
           </div>
-          <ColorPickerForm
-            paletteIsFull={paletteIsFull}
-            addNewColor={this.addNewColor}
-            colors={colors}
-          />
         </Drawer>
         <main
           className={clsx(classes.content, {
