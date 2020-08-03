@@ -25,6 +25,7 @@ const styles = theme => ({
     }),
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center',
     height: 64,
   },
   appBarShift: {
@@ -41,10 +42,27 @@ const styles = theme => ({
   hide: {
     display: 'none',
   },
-  navBtns: {},
+  navBtns: {
+    marginRight: '1rem',
+  },
+  button: {
+    margin: '0 0.5rem',
+  },
 });
 
 class PaletteFormNav extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = { formOpen: false };
+
+    this.openForm = this.openForm.bind(this);
+  }
+
+  openForm() {
+    this.setState({ formOpen: true });
+  }
+
   render() {
     const { classes, open, savePalette, handleDrawerOpen, palettes } = this.props;
 
@@ -73,14 +91,22 @@ class PaletteFormNav extends Component {
             </Typography>
           </Toolbar>
           <div className={classes.navBtns}>
-            <SavePaletteForm savePalette={savePalette} palettes={palettes} />
             <Link to="/">
-              <Button color="secondary" variant="contained">
+              <Button className={classes.button} color="secondary" variant="contained">
                 Go Back
               </Button>
             </Link>
+            <Button
+              className={classes.button}
+              variant="contained"
+              color="primary"
+              onClick={this.openForm}
+            >
+              Save Palette
+            </Button>
           </div>
         </AppBar>
+        {this.state.formOpen && <SavePaletteForm savePalette={savePalette} palettes={palettes} />}
       </div>
     );
   }
