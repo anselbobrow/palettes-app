@@ -7,7 +7,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import Button from '@material-ui/core/Button';
 import SavePaletteForm from './SavePaletteForm';
 import styles from './styles/PaletteFormNavStyles';
@@ -50,19 +50,19 @@ class PaletteFormNav extends Component {
           })}
         >
           <Toolbar>
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
+            <Button
+              className={open && classes.hide}
               onClick={handleDrawerOpen}
-              edge="start"
-              className={clsx(classes.menuButton, open && classes.hide)}
+              variant="outlined"
+              color="primary"
             >
-              <MenuIcon />
-            </IconButton>
-            <Typography variant="h6" noWrap>
-              Create Palette
-            </Typography>
+              Edit
+            </Button>
           </Toolbar>
+          <Typography variant="h6" noWrap>
+            Create Palette
+          </Typography>
+
           <div className={classes.navBtns}>
             <Link to="/">
               <Button className={classes.button} color="secondary" variant="contained">
