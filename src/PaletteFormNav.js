@@ -9,7 +9,6 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import Button from '@material-ui/core/Button';
-import { ValidatorForm } from 'react-material-ui-form-validator';
 import SavePaletteForm from './SavePaletteForm';
 
 const drawerWidth = 350;
@@ -57,14 +56,20 @@ class PaletteFormNav extends Component {
     this.state = { formOpen: false };
 
     this.openForm = this.openForm.bind(this);
+    this.closeForm = this.closeForm.bind(this);
   }
 
   openForm() {
     this.setState({ formOpen: true });
   }
 
+  closeForm() {
+    this.setState({ formOpen: false });
+  }
+
   render() {
     const { classes, open, savePalette, handleDrawerOpen, palettes } = this.props;
+    const { formOpen } = this.state;
 
     return (
       <div className={classes.root}>
@@ -106,7 +111,14 @@ class PaletteFormNav extends Component {
             </Button>
           </div>
         </AppBar>
-        {this.state.formOpen && <SavePaletteForm savePalette={savePalette} palettes={palettes} />}
+        {formOpen && (
+          <SavePaletteForm
+            closeForm={this.closeForm}
+            savePalette={savePalette}
+            palettes={palettes}
+            open={formOpen}
+          />
+        )}
       </div>
     );
   }
