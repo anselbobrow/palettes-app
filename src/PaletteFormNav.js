@@ -53,23 +53,28 @@ class PaletteFormNav extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { formOpen: false };
+    this.state = { formState: 'closed' };
 
-    this.openForm = this.openForm.bind(this);
+    this.showFormName = this.showFormName.bind(this);
     this.closeForm = this.closeForm.bind(this);
+    this.showEmojiPicker = this.showEmojiPicker.bind(this);
   }
 
-  openForm() {
-    this.setState({ formOpen: true });
+  showFormName() {
+    this.setState({ formState: 'name' });
+  }
+
+  showEmojiPicker() {
+    this.setState({ formState: 'emoji' });
   }
 
   closeForm() {
-    this.setState({ formOpen: false });
+    this.setState({ formState: 'closed' });
   }
 
   render() {
     const { classes, open, savePalette, handleDrawerOpen, palettes } = this.props;
-    const { formOpen } = this.state;
+    const { formState } = this.state;
 
     return (
       <div className={classes.root}>
@@ -105,18 +110,20 @@ class PaletteFormNav extends Component {
               className={classes.button}
               variant="contained"
               color="primary"
-              onClick={this.openForm}
+              onClick={this.showFormName}
             >
               Save Palette
             </Button>
           </div>
         </AppBar>
-        {formOpen && (
+        {formState !== 'closed' && (
           <SavePaletteForm
+            showFormName={this.showFormName}
+            showEmojiPicker={this.showEmojiPicker}
             closeForm={this.closeForm}
             savePalette={savePalette}
             palettes={palettes}
-            open={formOpen}
+            formState={formState}
           />
         )}
       </div>
