@@ -71,7 +71,7 @@ class PaletteFormNav extends Component {
               Edit
             </Button>
           </div>
-          <div className={classes.title}>
+          <div className={clsx(open ? classes.titleLeft : classes.titleCenter)}>
             <Typography variant="h6" noWrap>
               Create Palette
             </Typography>

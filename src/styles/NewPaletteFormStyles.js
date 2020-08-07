@@ -1,4 +1,5 @@
-import {DRAWER_WIDTH as drawerWidth} from '../constants';
+import sizes from './sizes';
+import { DRAWER_WIDTH as drawerWidth } from '../constants';
 
 export default theme => ({
   root: {
@@ -13,13 +14,16 @@ export default theme => ({
       textAlign: 'center',
     },
   },
+
   drawer: {
     width: drawerWidth,
     flexShrink: 0,
   },
+
   drawerPaper: {
     width: drawerWidth,
   },
+
   drawerHeader: {
     display: 'flex',
     alignItems: 'center',
@@ -28,6 +32,7 @@ export default theme => ({
     ...theme.mixins.toolbar,
     justifyContent: 'flex-end',
   },
+
   content: {
     flex: 1,
     padding: '64px 0 0',
@@ -38,6 +43,7 @@ export default theme => ({
     marginLeft: -drawerWidth,
     height: '100vh',
   },
+
   contentShift: {
     transition: theme.transitions.create('margin', {
       easing: theme.transitions.easing.easeOut,
@@ -45,6 +51,7 @@ export default theme => ({
     }),
     marginLeft: 0,
   },
+
   container: {
     width: '90%',
     height: '100%',
@@ -54,12 +61,14 @@ export default theme => ({
     justifyContent: 'center',
     alignItems: 'center',
   },
+
   buttons: {
     width: '100%',
     display: 'flex',
     justifyContent: 'space-between',
     marginTop: '1rem',
   },
+
   button: {
     width: '48%',
   },

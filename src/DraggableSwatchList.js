@@ -1,17 +1,14 @@
 import React from 'react';
+import { withStyles } from '@material-ui/core/styles';
 import { SortableContainer } from 'react-sortable-hoc';
 import DraggableSwatch from './DraggableSwatch';
+import styles from './styles/DraggableSwatchListStyles';
 
-const DraggableSwatchList = SortableContainer(({ colors, deleteColor }) => {
+const DraggableSwatchList = SortableContainer(props => {
+  const { classes, colors, deleteColor } = props;
+
   return (
-    <div
-      style={{
-        height: '100%',
-        display: 'grid',
-        gridTemplateColumns: 'repeat(5, 20%)',
-        gridTemplateRows: 'repeat(4, 25%)',
-      }}
-    >
+    <div className={classes.root}>
       {colors.map((color, i) => (
         <DraggableSwatch
           key={color.name}
@@ -25,4 +22,4 @@ const DraggableSwatchList = SortableContainer(({ colors, deleteColor }) => {
   );
 });
 
-export default DraggableSwatchList;
+export default withStyles(styles)(DraggableSwatchList);
