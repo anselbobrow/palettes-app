@@ -22,7 +22,7 @@ export default {
 
     [sizes.down('md')]: {
       flex: '50% 0',
-      height: props => (props.isFullPalette ? '10%' : '33.33%'),
+      height: props => (props.isFullPalette ? '10%' : '20%'),
     },
 
     [sizes.down('xs')]: {
@@ -90,8 +90,11 @@ export default {
   showOverlay: {
     opacity: 1,
     zIndex: 1,
-    transform: 'scale(10)',
     transition: 'transform 0.3s ease-in-out',
+    transform: 'scale(10)',
+    [sizes.down('xs')]: {
+      transform: 'scale(20)',
+    },
   },
 
   copyMessage: {
@@ -118,6 +121,9 @@ export default {
       marginBottom: 0,
       padding: '1rem',
       textTransform: 'uppercase',
+      [sizes.down('xs')]: {
+        fontSize: '5rem',
+      },
     },
     '& p': {
       fontSize: '2rem',
