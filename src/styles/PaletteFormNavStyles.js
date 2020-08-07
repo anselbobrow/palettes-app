@@ -10,7 +10,6 @@ export default theme => ({
       duration: theme.transitions.duration.leavingScreen,
     }),
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
     height: 64,
   },
@@ -22,6 +21,13 @@ export default theme => ({
       duration: theme.transitions.duration.enteringScreen,
     }),
   },
+  title: {
+    position: 'absolute',
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   menuButton: {
     marginRight: theme.spacing(2),
   },
@@ -29,7 +35,13 @@ export default theme => ({
     display: 'none',
   },
   navBtns: {
-    marginRight: '1rem',
+    width: '100%',
+    margin: '0 0.5rem',
+    display: 'flex',
+    flexDirection: 'row-reverse',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    zIndex: 2,
   },
   button: {
     margin: '0 0.5rem',

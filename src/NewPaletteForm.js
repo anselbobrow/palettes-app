@@ -22,6 +22,7 @@ class NewPaletteForm extends Component {
     this.state = {
       open: true,
       colors: this.props.palettes[0].colors,
+      randomColor: '#3f51b5',
     };
 
     this.handleDrawerOpen = this.handleDrawerOpen.bind(this);
@@ -55,12 +56,12 @@ class NewPaletteForm extends Component {
     }));
   }
 
-  clearColors() {
-    this.setState({ colors: [] });
+  randomColor() {
+    this.setState({ randomColor: chroma.random().hex() });
   }
 
-  randomColor() {
-    this.setState({ currentColor: chroma.random().hex() });
+  clearColors() {
+    this.setState({ colors: [] });
   }
 
   handleChange(e) {
@@ -87,7 +88,7 @@ class NewPaletteForm extends Component {
 
   render() {
     const { classes, maxColors, palettes } = this.props;
-    const { open, colors } = this.state;
+    const { open, colors, randomColor } = this.state;
 
     const paletteIsFull = colors.length >= maxColors;
 
@@ -126,10 +127,10 @@ class NewPaletteForm extends Component {
                 Clear Palette
               </Button>
               <Button
+                onClick={this.randomColor}
                 className={classes.button}
                 variant="contained"
                 color="primary"
-                onClick={this.randomColor}
               >
                 Random Color
               </Button>
@@ -137,6 +138,7 @@ class NewPaletteForm extends Component {
             <ColorPickerForm
               paletteIsFull={paletteIsFull}
               addNewColor={this.addNewColor}
+              randomColor={randomColor}
               colors={colors}
             />
           </div>

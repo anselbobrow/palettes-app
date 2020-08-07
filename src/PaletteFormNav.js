@@ -4,10 +4,7 @@ import clsx from 'clsx';
 import { withStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import Button from '@material-ui/core/Button';
 import SavePaletteForm from './SavePaletteForm';
 import styles from './styles/PaletteFormNavStyles';
@@ -49,34 +46,35 @@ class PaletteFormNav extends Component {
             [classes.appBarShift]: open,
           })}
         >
-          <Toolbar>
+          <div className={classes.navBtns}>
+            <div>
+              <Link to="/">
+                <Button className={classes.button} color="secondary" variant="contained">
+                  Go Back
+                </Button>
+              </Link>
+              <Button
+                className={classes.button}
+                variant="contained"
+                color="primary"
+                onClick={this.showFormName}
+              >
+                Save Palette
+              </Button>
+            </div>
             <Button
-              className={open && classes.hide}
+              className={clsx(classes.button, open && classes.hide)}
               onClick={handleDrawerOpen}
               variant="outlined"
               color="primary"
             >
               Edit
             </Button>
-          </Toolbar>
-          <Typography variant="h6" noWrap>
-            Create Palette
-          </Typography>
-
-          <div className={classes.navBtns}>
-            <Link to="/">
-              <Button className={classes.button} color="secondary" variant="contained">
-                Go Back
-              </Button>
-            </Link>
-            <Button
-              className={classes.button}
-              variant="contained"
-              color="primary"
-              onClick={this.showFormName}
-            >
-              Save Palette
-            </Button>
+          </div>
+          <div className={classes.title}>
+            <Typography variant="h6" noWrap>
+              Create Palette
+            </Typography>
           </div>
         </AppBar>
         {formState !== 'closed' && (

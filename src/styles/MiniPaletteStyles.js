@@ -6,8 +6,9 @@ export default {
     padding: '0.5rem',
     position: 'relative',
     overflow: 'hidden',
-    '&:hover': {
-      cursor: 'pointer',
+    cursor: 'pointer',
+    '&:hover svg': {
+      opacity: 1,
     },
   },
 
@@ -41,5 +42,20 @@ export default {
   miniSwatch: {
     flex: '20% 0',
     height: '25%',
+  },
+
+  delete: {},
+
+  deleteIcon: {
+    color: 'white',
+    backgroundColor: '#eb3d30',
+    width: 20,
+    height: 20,
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    padding: 10,
+    opacity: 0,
+    transition: 'all 0.3s ease-in-out',
   },
 };
