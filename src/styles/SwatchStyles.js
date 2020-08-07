@@ -1,4 +1,5 @@
 import chroma from 'chroma-js';
+import sizes from './sizes';
 
 export default {
   Swatch: {
@@ -9,8 +10,24 @@ export default {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+
     '&:hover button': {
       opacity: 1,
+    },
+
+    [sizes.down('lg')]: {
+      flex: '25% 0',
+      height: props => (props.isFullPalette ? '20%' : '33.33%'),
+    },
+
+    [sizes.down('md')]: {
+      flex: '50% 0',
+      height: props => (props.isFullPalette ? '10%' : '33.33%'),
+    },
+
+    [sizes.down('xs')]: {
+      flex: '100% 0',
+      height: props => (props.isFullPalette ? '5%' : '10%'),
     },
   },
 

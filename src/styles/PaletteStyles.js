@@ -10,6 +10,7 @@ export default {
     width: '100%',
     display: 'flex',
     alignItems: 'stretch',
+    alignContent: 'start',
     flexWrap: 'wrap',
   },
 
