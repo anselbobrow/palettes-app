@@ -1,3 +1,4 @@
+import sizes from './sizes';
 const miniPaletteWidth = 240;
 
 export default {
@@ -23,11 +24,24 @@ export default {
   },
 
   container: {
-    maxWidth: `calc(3 * (${miniPaletteWidth}px + 4rem))`,
     display: 'flex',
     alignItems: 'flex-start',
     flexDirection: 'column',
-    flexWrap: 'wrap',
+  },
+
+  palettes: {
+    boxSizing: 'border-box',
+    width: '100%',
+    display: 'grid',
+    gridTemplateColumns: `repeat(3, ${miniPaletteWidth}px)`,
+    [sizes.down('md')]: {
+      gridTemplateColumns: `repeat(2, ${miniPaletteWidth}px)`,
+    },
+    [sizes.down('xs')]: {
+      display: 'flex',
+      flexDirection: 'column',
+    },
+    gap: '2rem',
   },
 
   nav: {
@@ -40,12 +54,10 @@ export default {
     },
   },
 
-  palettes: {
-    boxSizing: 'border-box',
-    width: '100%',
-    display: 'grid',
-    gridTemplateColumns: `repeat(3, ${miniPaletteWidth}px)`,
-    gap: '2rem',
+  react: {
+    [sizes.down('xs')]: {
+      display: 'none',
+    },
   },
 
   newPalette: {

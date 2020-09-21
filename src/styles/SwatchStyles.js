@@ -93,6 +93,9 @@ export default {
     transition: 'transform 0.3s ease-in-out',
     transform: 'scale(10)',
     [sizes.down('xs')]: {
+      transform: 'scale(50)',
+    },
+    [sizes.down('md')]: {
       transform: 'scale(20)',
     },
   },
