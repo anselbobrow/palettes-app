@@ -1,5 +1,4 @@
 import chroma from 'chroma-js';
-import sizes from './sizes';
 
 export default {
   root: {
@@ -21,7 +20,7 @@ export default {
     fontSize: '0.75rem',
     display: 'flex',
     justifyContent: 'space-between',
-    alignItems: 'flex-end', 
+    alignItems: 'flex-end',
   },
 
   deleteIcon: {

@@ -154,6 +154,7 @@ class NewPaletteForm extends Component {
             onSortEnd={this.onSortEnd}
             axis="xy"
             lockToContainerEdges
+            distance={10}
           />
         </main>
       </div>

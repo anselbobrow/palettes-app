@@ -1,16 +1,32 @@
 import sizes from './sizes';
+import bg from './bg.svg';
+
 const miniPaletteWidth = 240;
 
 export default {
+  '@global': {
+    '.fade-exit': {
+      opacity: 1,
+    },
+    '.fade-exit-active': {
+      opacity: 0,
+      transition: 'opacity 500ms ease-out',
+    },
+  },
+
   root: {
     position: 'fixed',
     width: '100vw',
     overflow: 'scroll',
-    backgroundColor: 'blue',
     height: '100vh',
     display: 'flex',
     alignItems: 'flex-start',
     justifyContent: 'center',
+    /* background by SVGBackgrounds.com */
+    backgroundColor: '#22328f',
+    backgroundImage: `url(${bg})`,
+    backgroundSize: '60%',
+    backgroundAttachment: 'fixed',
 
     '& h1': {
       color: 'white',

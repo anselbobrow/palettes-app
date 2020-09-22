@@ -10,8 +10,8 @@ import { Picker } from 'emoji-mart';
 import 'emoji-mart/css/emoji-mart.css';
 
 class SavePaletteForm extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
 
     this.state = { newPaletteName: '' };
     this.handleChange = this.handleChange.bind(this);
@@ -43,12 +43,17 @@ class SavePaletteForm extends Component {
 
     return (
       <div>
-        <Dialog open={formState === 'name'} onClose={closeForm} aria-labelledby="form-dialog-title">
+        <Dialog
+          open={formState === 'name'}
+          onClose={closeForm}
+          aria-labelledby="form-dialog-title"
+        >
           <DialogTitle id="form-dialog-title">Save Palette</DialogTitle>
           <ValidatorForm onSubmit={showEmojiPicker}>
             <DialogContent>
               <DialogContentText>
-                Save your newly created palette. Make sure to give it a unique name!
+                Save your newly created palette. Make sure to give it a unique
+                name!
               </DialogContentText>
               <TextValidator
                 fullWidth
@@ -72,7 +77,9 @@ class SavePaletteForm extends Component {
           </ValidatorForm>
         </Dialog>
         <Dialog open={formState === 'emoji'} onClose={closeForm}>
-          <DialogTitle id="form-dialog-title">Choose a palette emoji...</DialogTitle>
+          <DialogTitle id="form-dialog-title">
+            Choose a palette emoji...
+          </DialogTitle>
           <Picker title="Pick an emoji" onSelect={this.handleSubmit} />
         </Dialog>
       </div>

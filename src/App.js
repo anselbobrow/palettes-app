@@ -23,19 +23,26 @@ class App extends Component {
   }
 
   savePalette(newPalette) {
-    this.setState({ palettes: [...this.state.palettes, newPalette] }, this.syncLocalStorage);
+    this.setState(
+      { palettes: [...this.state.palettes, newPalette] },
+      this.syncLocalStorage
+    );
   }
 
-  deletePalette(e, id) {
-    e.stopPropagation();
+  deletePalette(id) {
     this.setState(prevState => {
-      return { palettes: prevState.palettes.filter(palette => palette.id !== id) };
+      return {
+        palettes: prevState.palettes.filter(palette => palette.id !== id),
+      };
     }, this.syncLocalStorage);
   }
 
   syncLocalStorage() {
     // save palettes to local storage
-    window.localStorage.setItem('palettes', JSON.stringify(this.state.palettes));
+    window.localStorage.setItem(
+      'palettes',
+      JSON.stringify(this.state.palettes)
+    );
   }
 
   render() {
@@ -67,7 +74,11 @@ class App extends Component {
           exact
           path="/palette/:palette"
           render={routeProps => (
-            <Palette palette={generatePalette(this.findPalette(routeProps.match.params.palette))} />
+            <Palette
+              palette={generatePalette(
+                this.findPalette(routeProps.match.params.palette)
+              )}
+            />
           )}
         />
         <Route
@@ -75,7 +86,9 @@ class App extends Component {
           path="/palette/:palette/:color"
           render={routeProps => (
             <SwatchDetail
-              palette={generatePalette(this.findPalette(routeProps.match.params.palette))}
+              palette={generatePalette(
+                this.findPalette(routeProps.match.params.palette)
+              )}
               color={routeProps.match.params.color}
             />
           )}
